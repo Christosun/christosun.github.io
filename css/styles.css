@@ -11081,3 +11081,8 @@ html {
 .resume-column p {
     text-align: center;
 }
+
+footer .text-center p,
+footer .text-center h4 {
+    text-align: center;
+}

@@ -11054,3 +11054,25 @@ html {
 .copyright {
   background-color: #021515;
 }
+
+.lead {
+    text-align: justify;
+}
+
+.resume-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6rem;
+    margin-top: 2rem;
+    max-width: 1000px; /* membatasi lebar kontainer */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem; /* memberi jarak kiri-kanan saat mobile */
+}
+
+.resume-column {
+    flex: 1 1 45%;
+    min-width: 300px;
+}
+

@@ -11069,6 +11069,7 @@ html {
     margin-left: auto;
     margin-right: auto;
     padding: 0 1rem; /* memberi jarak kiri-kanan saat mobile */
+	text-align: center;
 }
 
 .resume-column {
@@ -11076,3 +11077,7 @@ html {
     min-width: 300px;
 }
 
+.resume-column h5,
+.resume-column p {
+    text-align: center;
+}

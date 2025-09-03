@@ -129,6 +129,20 @@ p {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+.gradient-text {
+  background: radial-gradient(circle, #b8b4b1, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; 
+  color: transparent;
+}
+.gradient-text-black {
+  background: radial-gradient(circle, #38992b, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; 
+  color: transparent;
+}
 
 abbr[title],
 abbr[data-bs-original-title] {
@@ -11086,3 +11100,4 @@ footer .text-center p,
 footer .text-center h4 {
     text-align: center;
 }
+

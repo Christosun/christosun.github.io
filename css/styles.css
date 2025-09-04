@@ -222,11 +222,11 @@ sup {
 }
 
 a {
-  color: #52616b;
+  color: #ffffff;
   text-decoration: underline;
 }
 a:hover {
-  color: #15967d;
+  color: #bbbec1;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -2968,8 +2968,8 @@ textarea.form-control-lg {
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #16a085;
-  border-color: #15967d;
+  background-color: #272a2a;
+  border-color: #000000;
 }
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
@@ -11033,7 +11033,7 @@ html {
   left: 0;
   transition: all 0.2s ease-in-out;
   opacity: 0;
-  background-color: rgba(26, 188, 156, 0.9);
+  background-color: rgba(39, 42, 42, 0.8);
 }
 .portfolio .portfolio-item .portfolio-item-caption:hover {
   opacity: 1;

@@ -9,6 +9,7 @@
   --bg2: #111620;
   --bg3: #181f2e;
   --accent: #00d4aa;
+  --accent-rgb: 0,212,170;
   --accent2: #0066ff;
   --text: #e8edf5;
   --text-muted: #7a8599;
@@ -672,3 +673,296 @@ footer {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,212,170,0.3); }
+/* ============================================================
+   THEME COLOR PANEL
+   Tambahkan blok CSS ini ke bagian paling bawah css/styles.css
+   ============================================================ */
+
+/* ─── Toggle Button ─── */
+.theme-toggle {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1100;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(17,22,32,0.92);
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(12px);
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb),0.4);
+  background: rgba(17,22,32,0.98);
+  transform: translateY(-50%) scale(1.05);
+}
+.theme-toggle svg {
+  width: 17px; height: 17px;
+  transition: transform 0.4s ease;
+}
+.theme-toggle:hover svg { transform: rotate(45deg); }
+
+/* ─── Side Panel ─── */
+.theme-panel {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 260px;
+  background: rgba(10,14,20,0.97);
+  border-left: 1px solid var(--border);
+  z-index: 1099;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.36s cubic-bezier(0.4,0,0.2,1);
+  backdrop-filter: blur(20px);
+}
+.theme-panel.open { transform: translateX(0); }
+
+.theme-panel-backdrop {
+  position: fixed; inset: 0;
+  z-index: 1098;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.theme-panel-backdrop.open { opacity: 1; pointer-events: all; }
+
+/* ─── Panel Header ─── */
+.tp-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.tp-title {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.tp-close {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 0.9rem;
+  transition: var(--transition);
+}
+.tp-close:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+/* ─── Panel Scroll Body ─── */
+.tp-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  scrollbar-width: none;
+}
+.tp-body::-webkit-scrollbar { display: none; }
+
+/* ─── Section Label ─── */
+.tp-label {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(122,133,153,0.6);
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.tp-label::after {
+  content: ''; flex: 1; height: 1px;
+  background: var(--border);
+}
+
+/* ─── Swatch Grid ─── */
+.tp-swatches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tp-swatch {
+  border-radius: 10px;
+  padding: 0.75rem 0.625rem;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  background: rgba(255,255,255,0.03);
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.tp-swatch::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--sw-color);
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: inherit;
+}
+.tp-swatch:hover::before { opacity: 0.07; }
+.tp-swatch:hover { transform: translateY(-2px); }
+.tp-swatch.active { border-color: var(--sw-color) !important; }
+.tp-swatch.active::before { opacity: 0.1; }
+
+.tp-swatch-dot {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  margin-bottom: 0.4rem;
+  background: var(--sw-color);
+  position: relative;
+  z-index: 1;
+}
+.tp-swatch-dot::after {
+  content: '✓';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  color: #0a0e14;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.tp-swatch.active .tp-swatch-dot::after { opacity: 1; }
+
+.tp-swatch-name {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text);
+  position: relative; z-index: 1;
+  line-height: 1.2;
+}
+.tp-swatch-hex {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  position: relative; z-index: 1;
+}
+
+/* ─── Divider ─── */
+.tp-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1rem 0;
+}
+
+/* ─── Custom Color ─── */
+.tp-custom-row {
+  display: flex; gap: 0.5rem; align-items: center;
+  margin-bottom: 0.75rem;
+}
+.tp-color-input {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.tp-color-input::-webkit-color-swatch-wrapper { padding: 0; border-radius: 5px; }
+.tp-color-input::-webkit-color-swatch { border: none; border-radius: 5px; }
+.tp-hex-input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  padding: 0 0.75rem;
+  height: 36px;
+  outline: none;
+  transition: var(--transition);
+}
+.tp-hex-input:focus {
+  border-color: rgba(var(--accent-rgb),0.5);
+  background: rgba(var(--accent-rgb),0.04);
+}
+
+/* ─── Apply Button ─── */
+.tp-apply {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #0a0e14;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+.tp-apply:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(var(--accent-rgb),0.3);
+}
+
+/* ─── Preview Strip ─── */
+.tp-preview {
+  margin-top: 1.5rem;
+}
+.tp-preview-bar {
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(255,255,255,0.06) 100%);
+  margin-bottom: 0.625rem;
+  transition: background 0.3s;
+}
+.tp-preview-dots {
+  display: flex; gap: 6px; align-items: center;
+}
+.tp-preview-dot {
+  height: 20px; border-radius: 5px;
+  background: var(--accent);
+  transition: background 0.3s, width 0.3s;
+}
+
+/* ─── Panel Footer ─── */
+.tp-footer {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.tp-reset {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.tp-reset:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+/* ─── Active accent highlight on toggle ─── */
+.theme-toggle.panel-active {
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb),0.4);
+}
+
+/* ─── Mobile responsive ─── */
+@media (max-width: 768px) {
+  .theme-panel { width: 100%; max-width: 300px; }
+  .theme-toggle {
+    right: 1rem;
+    top: auto;
+    bottom: 1.5rem;
+    transform: none;
+  }
+  .theme-toggle:hover { transform: scale(1.05); }
+}

@@ -193,8 +193,12 @@ nav {
   background: var(--accent);
   color: #0a0e14;
 }
-.btn-primary:hover { background: #00b894; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,170,0.3); }
-
+.btn-primary:hover {
+  background: var(--accent);
+  filter: brightness(0.88);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.35);
+}
 .btn-outline {
   background: transparent;
   border: 1px solid var(--border);

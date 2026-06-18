@@ -819,6 +819,7 @@ footer {
   .lightbox-nav { width: 40px; height: 40px; font-size: 0.85rem; }
   .lightbox-hint { display: none; }
   .modal-imgs.view-grid-3 { grid-template-columns: 1fr 1fr; }
+  .view-btn[data-view="view-grid-3"] { display: none; } /* 3-kol = 2-kol di tablet, sembunyikan */
 }
 @media (max-width: 480px) {
   .lightbox-img-wrap { max-width: calc(100vw - 60px); }
@@ -827,6 +828,7 @@ footer {
   .lightbox-nav { width: 36px; height: 36px; font-size: 0.8rem; }
   .modal-imgs.view-grid-2,
   .modal-imgs.view-grid-3 { grid-template-columns: 1fr; }
+  .modal-view-bar { display: none; } /* semua view = 1 kolom di mobile kecil, switcher tidak berguna */
 }
 
 /* ============================================================

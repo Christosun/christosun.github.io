@@ -805,10 +805,6 @@ footer {
   font-size: 0.72rem; color: rgba(255,255,255,0.45);
   letter-spacing: 0.12em;
 }
-.lightbox-hint {
-  font-size: 0.67rem; color: rgba(255,255,255,0.2);
-  letter-spacing: 0.05em;
-}
 
 /* ─── RESPONSIVE — lightbox ─── */
 @media (max-width: 768px) {

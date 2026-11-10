@@ -1120,3 +1120,142 @@ footer {
   }
   .theme-toggle:hover { transform: scale(1.05); }
 }
+
+/* ============================================================
+   ARCADE (SIDE PROJECT)
+   Tempel di PALING BAWAH css/styles.css
+   Memakai variabel tema (--accent, --accent-rgb, dst.), jadi otomatis
+   mengikuti panel Theme Color.
+   ============================================================ */
+
+#arcade { background: var(--bg); padding: 5rem 0 6rem; }
+
+.arcade-card {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.07) 0%, var(--card-bg) 55%);
+  position: relative;
+  overflow: hidden;
+}
+
+.arcade-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.arcade-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 52ch;
+  margin-bottom: 1.25rem;
+}
+
+.arcade-tags { margin-bottom: 1.75rem; }
+.arcade-btn { align-self: flex-start; }
+
+/* ─── Mini "screen" (pure CSS pong) ─── */
+.arcade-screen {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--accent-rgb), 0.28);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(var(--accent-rgb), 0.1), transparent 70%),
+    var(--bg2);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.02), 0 24px 48px rgba(0,0,0,0.35);
+  overflow: hidden;
+  transition: var(--transition);
+  text-decoration: none;
+}
+.arcade-screen::before {            /* subtle scanlines */
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    to bottom, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px);
+  pointer-events: none;
+}
+.arcade-screen:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--accent-rgb), 0.55);
+}
+.arcade-screen:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.arcade-net {
+  position: absolute; top: 8%; bottom: 8%; left: 50%;
+  width: 0; border-left: 2px dashed rgba(255,255,255,0.12);
+  transform: translateX(-50%);
+}
+
+.arcade-paddle {
+  position: absolute;
+  width: 3.5%; height: 22%;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.55);
+  animation: arcadePaddle 1.8s ease-in-out infinite alternate;
+}
+.arcade-paddle-l { left: 5%; top: 20%; }
+.arcade-paddle-r { right: 5%; top: 58%; animation-delay: -0.9s; }
+
+.arcade-ball {
+  position: absolute;
+  width: 4%; aspect-ratio: 1;
+  border-radius: 2px;
+  background: var(--text);
+  box-shadow: 0 0 12px rgba(255,255,255,0.5);
+  left: 10%; top: 20%;
+  animation:
+    arcadeBallX 2.4s linear infinite alternate,
+    arcadeBallY 1.7s ease-in-out infinite alternate;
+}
+
+.arcade-play {
+  position: absolute; left: 50%; top: 50%;
+  width: 52px; height: 52px;
+  transform: translate(-50%, -50%) scale(0.85);
+  border-radius: 50%;
+  background: var(--accent);
+  color: #0a0e14;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; padding-left: 3px;
+  opacity: 0;
+  transition: var(--transition);
+  box-shadow: 0 8px 28px rgba(var(--accent-rgb), 0.45);
+}
+.arcade-screen:hover .arcade-play,
+.arcade-screen:focus-visible .arcade-play {
+  opacity: 1; transform: translate(-50%, -50%) scale(1);
+}
+
+@keyframes arcadePaddle { from { transform: translateY(-35%); } to { transform: translateY(95%); } }
+@keyframes arcadeBallX  { from { left: 10%; } to { left: 86%; } }
+@keyframes arcadeBallY  { from { top: 14%; } to { top: 78%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .arcade-paddle, .arcade-ball { animation: none; }
+  .arcade-ball { left: 48%; top: 46%; }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .arcade-card { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+  .arcade-screen { order: -1; max-width: 520px; }   /* layar tampil di atas teks */
+}
+@media (max-width: 480px) {
+  #arcade { padding: 3.5rem 0 4rem; }
+  .arcade-card { padding: 1.25rem; border-radius: 14px; }
+  .arcade-btn { width: 100%; justify-content: center; }
+  .arcade-play { opacity: 1; transform: translate(-50%, -50%) scale(0.8); } /* tidak ada hover di HP */
+}

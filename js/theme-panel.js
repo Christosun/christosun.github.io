@@ -4,6 +4,8 @@
 
 (function () {
   'use strict';
+  if (window.__bbThemePanel) return;
+  window.__bbThemePanel = true;
 
   const PALETTES = [
     { name: 'Teal',     hex: '#00d4aa' },
@@ -458,6 +460,7 @@
 
   /* ── Init ── */
   function init() {
+    if (document.getElementById('theme-panel')) return;   // sudah ada, jangan buat lagi
     buildPanel();
     var saved = DEFAULT_COLOR;
     try { saved = localStorage.getItem(STORAGE_KEY) || DEFAULT_COLOR; } catch(e) {}

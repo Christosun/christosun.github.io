@@ -1,0 +1,160 @@
+/* ============================================================
+   LIGHT / DARK MODE — css/theme-mode.css
+   Muat SETELAH css/styles.css
+   ============================================================ */
+
+:root {
+  color-scheme: dark;
+  --nav-bg: rgba(10,14,20,0.92);
+  --accent-ink: var(--accent);          /* warna aksen untuk TEKS */
+}
+
+/* ─── LIGHT PALETTE ─── */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --bg2: #ebeff6;
+  --bg3: #e0e6f0;
+  --text: #101828;
+  --text-muted: #566176;
+  --border: rgba(16,24,40,0.12);
+  --card-bg: rgba(16,24,40,0.03);
+  --nav-bg: rgba(245,247,251,0.9);
+  /* aksen digelapkan otomatis (ikut palet pilihan di theme panel) agar teks tetap terbaca */
+  --accent-ink: color-mix(in srgb, var(--accent) 58%, #000);
+}
+
+/* Nav & mobile menu pakai variabel */
+nav, .mobile-menu { background: var(--nav-bg); }
+
+/* Teks beraksen -> versi "ink" di mode terang */
+[data-theme="light"] .nav-logo,
+[data-theme="light"] .nav-links a.active,
+[data-theme="light"] .hero-tag,
+[data-theme="light"] .hero-name .accent,
+[data-theme="light"] .section-label,
+[data-theme="light"] .modal-tag,
+[data-theme="light"] .project-num,
+[data-theme="light"] .resume-block-title,
+[data-theme="light"] .timeline-role,
+[data-theme="light"] .timeline-duties li::before,
+[data-theme="light"] .lang-level,
+[data-theme="light"] .contact-info-icon,
+[data-theme="light"] .social-link:hover,
+[data-theme="light"] .skill-tag:hover,
+[data-theme="light"] .btn-outline:hover,
+[data-theme="light"] .contact-info-value a:hover,
+[data-theme="light"] .form-status.success,
+[data-theme="light"] .view-btn.active { color: var(--accent-ink); }
+
+[data-theme="light"] .filter-btn:hover { border-color: rgba(16,24,40,0.25); }
+[data-theme="light"] input,
+[data-theme="light"] textarea { background: rgba(16,24,40,0.04); }
+[data-theme="light"] .portfolio-card:hover { box-shadow: 0 20px 40px rgba(16,24,40,0.15); }
+
+/* Theme color panel (dibuat via JS, aslinya hardcode gelap) */
+[data-theme="light"] .tt-arrow { color: rgba(16,24,40,0.6); }
+[data-theme="light"] #theme-toggle-btn:hover .tt-arrow,
+[data-theme="light"] #theme-toggle-btn.panel-active .tt-arrow { color: var(--accent-ink); }
+[data-theme="light"] .tt-grip span { background: rgba(16,24,40,0.3); }
+[data-theme="light"] #theme-toggle-btn { border: 1px solid var(--border); border-right: none; }
+[data-theme="light"] #tp-preview-bar { background: linear-gradient(90deg, var(--accent) 0%, rgba(16,24,40,0.1) 100%) !important; }
+[data-theme="light"] .tp-section-label { color: rgba(86,97,118,0.8); }
+[data-theme="light"] .tp-section-label::after,
+[data-theme="light"] .tp-divider { background: var(--border); }
+[data-theme="light"] .tp-swatch-hex { color: var(--text-muted); }
+[data-theme="light"] #theme-toggle-btn { background: rgba(255,255,255,0.96); box-shadow: -4px 0 20px rgba(16,24,40,0.14); }
+[data-theme="light"] #theme-toggle-btn:hover,
+[data-theme="light"] #theme-toggle-btn.panel-active { background: #fff; }
+[data-theme="light"] #theme-panel { background: rgba(255,255,255,0.98); border-left-color: var(--border); }
+[data-theme="light"] .tp-header,
+[data-theme="light"] .tp-footer { border-color: var(--border); }
+[data-theme="light"] .tp-swatch { background: rgba(16,24,40,0.03); }
+[data-theme="light"] .tp-swatch-name,
+[data-theme="light"] .tp-close:hover,
+[data-theme="light"] .tp-reset:hover { color: var(--text); }
+[data-theme="light"] .tp-hex-input { color: var(--text); background: rgba(16,24,40,0.04); border-color: var(--border); }
+[data-theme="light"] .tp-close,
+[data-theme="light"] .tp-reset { border-color: var(--border); }
+
+/* ─── Mini arcade: scanline (grid), garis tengah, bola & bingkai ─── */
+[data-theme="light"] .arcade-screen {
+  box-shadow: 0 0 0 4px rgba(16,24,40,0.04), 0 24px 48px rgba(16,24,40,0.14);
+}
+[data-theme="light"] .arcade-screen::before {
+  background: repeating-linear-gradient(
+    to bottom, rgba(16,24,40,0.08) 0, rgba(16,24,40,0.08) 1px, transparent 1px, transparent 4px);
+}
+[data-theme="light"] .arcade-net { border-left-color: rgba(16,24,40,0.32); }
+[data-theme="light"] .arcade-ball { box-shadow: 0 0 10px rgba(16,24,40,0.3); }
+
+/* ============================================================
+   MODE SWITCH — saklar "0 / 1", tanpa kotak, menyatu dengan nav
+   ============================================================ */
+.nav-logo { flex-shrink: 0; }
+.nav-links { margin-left: auto; flex-wrap: nowrap; }
+.nav-actions { display: flex; align-items: center; gap: 0.25rem; margin-left: 0.25rem; flex-shrink: 0; }
+
+.mode-switch {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 36px; padding: 0 0.875rem;          /* ritme sama dengan link nav */
+  border: none; background: none; border-radius: 8px;
+  cursor: pointer; flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: var(--transition);
+}
+.mode-switch:hover { background: var(--card-bg); }
+.mode-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* LED & label lama disembunyikan agar nav tetap ramping */
+.ms-led, .ms-text { display: none; }
+
+.ms-track {
+  position: relative; width: 44px; height: 20px; flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: border-color .3s;
+}
+.mode-switch:hover .ms-track { border-color: rgba(var(--accent-rgb), 0.5); }
+
+.ms-track::before, .ms-track::after {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-heading);
+  font-size: 0.55rem; line-height: 1; color: var(--text-muted); opacity: 0.7;
+}
+.ms-track::before { content: "0"; left: 7px; }
+.ms-track::after  { content: "1"; right: 7px; }
+
+.ms-knob {
+  position: absolute; z-index: 1; top: 2px; left: 2px;
+  width: 20px; height: 14px; border-radius: 4px;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center; gap: 2px;
+  transition: transform .4s cubic-bezier(.5,-.45,.3,1.45), box-shadow .3s;
+}
+.ms-knob i { width: 1.5px; height: 7px; border-radius: 1px; background: rgba(10,14,20,0.4); }
+
+/* terang = knob geser ke "1" + menyala (seperti LED) */
+[data-theme="light"] .ms-knob {
+  transform: translateX(18px);
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.65);
+}
+
+/* Transisi */
+html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+  transition: background-color .35s ease, color .35s ease, border-color .35s ease !important;
+}
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+/* ─── Responsif ─── */
+@media (max-width: 768px) {
+  .nav-actions { margin-left: auto; margin-right: -0.5rem; } /* ikon hamburger rata dgn tepi konten */
+  .mode-switch { padding: 0 0.5rem; }
+}
+@media (max-width: 380px) {
+  .nav-logo { font-size: 0.875rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ms-knob { transition: none; }
+}

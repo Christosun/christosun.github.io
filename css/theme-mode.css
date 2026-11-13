@@ -14,7 +14,6 @@
   color-scheme: light;
   --bg: #f5f7fb;
   --bg2: #ebeff6;
-  --bg3: #e0e6f0;
   --text: #101828;
   --text-muted: #566176;
   --border: rgba(16,24,40,0.12);
@@ -50,6 +49,12 @@ nav, .mobile-menu { background: var(--nav-bg); }
 [data-theme="light"] .filter-btn:hover { border-color: rgba(16,24,40,0.25); }
 [data-theme="light"] input,
 [data-theme="light"] textarea { background: rgba(16,24,40,0.04); }
+[data-theme="light"] input:focus,
+[data-theme="light"] textarea:focus {
+  background: rgba(var(--accent-rgb), 0.08);
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.22);
+}
 [data-theme="light"] .portfolio-card:hover { box-shadow: 0 20px 40px rgba(16,24,40,0.15); }
 
 /* Theme color panel (dibuat via JS, aslinya hardcode gelap) */
@@ -88,11 +93,50 @@ nav, .mobile-menu { background: var(--nav-bg); }
 [data-theme="light"] .arcade-net { border-left-color: rgba(16,24,40,0.32); }
 [data-theme="light"] .arcade-ball { box-shadow: 0 0 10px rgba(16,24,40,0.3); }
 
+/* ─── Lightbox ─── */
+[data-theme="light"] .lightbox-backdrop {
+  background: rgba(245,247,251,0.95);
+}
+[data-theme="light"] .lightbox-img {
+  box-shadow: 0 30px 80px rgba(16,24,40,0.22), 0 0 0 1px rgba(16,24,40,0.08);
+}
+[data-theme="light"] .lightbox-close,
+[data-theme="light"] .lightbox-nav {
+  background: rgba(16,24,40,0.05);
+  border-color: rgba(16,24,40,0.14);
+  color: rgba(16,24,40,0.7);
+}
+[data-theme="light"] .lightbox-close:hover,
+[data-theme="light"] .lightbox-nav:hover {
+  background: rgba(var(--accent-rgb), 0.14);
+  border-color: rgba(var(--accent-rgb), 0.5);
+  color: var(--accent-ink);
+}
+[data-theme="light"] .lightbox-counter { color: rgba(16,24,40,0.55); }
+
+/* ─── Hover kartu portfolio ─── */
+[data-theme="light"] .portfolio-card-overlay {
+  background: linear-gradient(to top,
+    rgba(245,247,251,0.97) 0%, rgba(245,247,251,0.72) 55%, transparent 100%);
+}
+[data-theme="light"] .portfolio-card-title { color: var(--text); }
+[data-theme="light"] .portfolio-card-num,
+[data-theme="light"] .portfolio-card-view { color: var(--accent-ink); }
+
+/* ─── Modal detail portfolio ─── */
+[data-theme="light"] .modal-overlay { background: rgba(226,231,240,0.8); }
+[data-theme="light"] .modal-box,
+[data-theme="light"] .modal-close { background: #fff; }          /* bar sticky harus sama dgn box */
+[data-theme="light"] .modal-box { box-shadow: 0 30px 80px rgba(16,24,40,0.2); }
+[data-theme="light"] .modal-close button:hover,
+[data-theme="light"] .view-btn:hover { border-color: rgba(16,24,40,0.25); }
+[data-theme="light"] .modal-imgs img:hover { box-shadow: 0 6px 20px rgba(16,24,40,0.18); }
+
 /* ============================================================
    MODE SWITCH — saklar "0 / 1", tanpa kotak, menyatu dengan nav
    ============================================================ */
 .nav-logo { flex-shrink: 0; }
-.nav-links { margin-left: auto; flex-wrap: nowrap; }
+.nav-links { margin-left: auto; }
 .nav-actions { display: flex; align-items: center; gap: 0.25rem; margin-left: 0.25rem; flex-shrink: 0; }
 
 .mode-switch {

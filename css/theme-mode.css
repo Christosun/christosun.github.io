@@ -211,3 +211,17 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
 @media (prefers-reduced-motion: reduce) {
   .ms-knob { transition: none; }
 }
+
+/* ─── Kartu portfolio di layar sentuh (light mode) ───
+   Caption selalu tampil, jadi pakai scrim gelap + teks putih
+   agar terbaca di atas foto apa pun dan gambar tidak tertutup kabut putih. */
+@media (hover: none) {
+  [data-theme="light"] .portfolio-card-overlay {
+    background: linear-gradient(to top,
+      rgba(10,14,20,0.88) 0%,
+      rgba(10,14,20,0.45) 38%,
+      rgba(10,14,20,0) 65%);
+  }
+  [data-theme="light"] .portfolio-card-title { color: #fff; }
+  [data-theme="light"] .portfolio-card-num   { color: var(--accent); }
+}

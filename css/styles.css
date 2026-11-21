@@ -1016,3 +1016,20 @@ footer {
   .lightbox-footer   { bottom: 0.875rem; }
   .lb-tool           { min-width: 42px; height: 42px; }   /* target sentuh lebih besar */
 }
+
+/* ─── Aksesibilitas kartu portfolio ─── */
+.portfolio-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.portfolio-card:focus-visible .portfolio-card-overlay { opacity: 1; }
+
+/* Perangkat sentuh (HP/tablet): judul selalu tampil karena tidak ada hover */
+@media (hover: none) {
+  .portfolio-card-overlay {
+    opacity: 1;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(10,14,20,0.92) 0%, rgba(10,14,20,0) 55%);
+  }
+  .portfolio-card-view { display: none; }
+}

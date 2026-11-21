@@ -58,10 +58,10 @@ nav, .mobile-menu { background: var(--nav-bg); }
 [data-theme="light"] .portfolio-card:hover { box-shadow: 0 20px 40px rgba(16,24,40,0.15); }
 
 /* Theme color panel (dibuat via JS, aslinya hardcode gelap) */
-[data-theme="light"] .tt-arrow { color: rgba(16,24,40,0.6); }
-[data-theme="light"] #theme-toggle-btn:hover .tt-arrow,
-[data-theme="light"] #theme-toggle-btn.panel-active .tt-arrow { color: var(--accent-ink); }
-[data-theme="light"] .tt-grip span { background: rgba(16,24,40,0.3); }
+/* Theme tab: ikon, grip, hint */
+[data-theme="light"] .tt-icon,
+[data-theme="light"] .tt-close-ic { color: var(--accent-ink); }
+[data-theme="light"] .tt-grip span { background: rgba(16,24,40,0.4); }
 [data-theme="light"] #theme-toggle-btn { border: 1px solid var(--border); border-right: none; }
 [data-theme="light"] #tp-preview-bar { background: linear-gradient(90deg, var(--accent) 0%, rgba(16,24,40,0.1) 100%) !important; }
 [data-theme="light"] .tp-section-label { color: rgba(86,97,118,0.8); }
@@ -96,6 +96,15 @@ nav, .mobile-menu { background: var(--nav-bg); }
 /* ─── Lightbox ─── */
 [data-theme="light"] .lightbox-backdrop {
   background: rgba(245,247,251,0.95);
+}
+[data-theme="light"] .lightbox-toolbar {
+  background: rgba(16,24,40,0.05);
+  border-color: rgba(16,24,40,0.14);
+}
+[data-theme="light"] .lb-tool { color: rgba(16,24,40,0.75); }
+[data-theme="light"] .lb-tool:hover:not(:disabled) {
+  background: rgba(var(--accent-rgb), 0.16);
+  color: var(--accent-ink);
 }
 [data-theme="light"] .lightbox-img {
   box-shadow: 0 30px 80px rgba(16,24,40,0.22), 0 0 0 1px rgba(16,24,40,0.08);

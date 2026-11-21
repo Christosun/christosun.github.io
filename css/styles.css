@@ -955,3 +955,64 @@ footer {
   .arcade-btn { width: 100%; justify-content: center; }
   .arcade-play { opacity: 1; transform: translate(-50%, -50%) scale(0.8); } /* tidak ada hover di HP */
 }
+
+/* ============================================================
+   LIGHTBOX ZOOM / PAN
+   ============================================================ */
+.lightbox-overlay { overflow: hidden; touch-action: none; }
+
+.lightbox-img {
+  transform-origin: center center;
+  will-change: transform;
+  cursor: zoom-in;
+  user-select: none; -webkit-user-select: none; -webkit-user-drag: none;
+}
+.lightbox-overlay.zoomed .lightbox-img   { cursor: grab; }
+.lightbox-overlay.panning .lightbox-img  { cursor: grabbing; }
+
+/* ruang untuk toolbar di bawah gambar */
+.lightbox-img-wrap { max-height: calc(100vh - 150px); }
+.lightbox-img      { max-height: calc(100vh - 150px); }
+
+.lightbox-footer {
+  flex-direction: column;
+  gap: 0.75rem;
+  bottom: 1.25rem;
+}
+
+.lightbox-toolbar {
+  display: flex; align-items: center; gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: auto;            /* footer-nya pointer-events: none */
+}
+
+.lb-tool {
+  min-width: 38px; height: 38px; padding: 0 0.5rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: none; border-radius: 10px;
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem; cursor: pointer;
+  transition: var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+.lb-tool:hover:not(:disabled) { background: rgba(var(--accent-rgb), 0.18); color: var(--accent); }
+.lb-tool:focus-visible        { outline: 2px solid var(--accent); outline-offset: 1px; }
+.lb-tool:disabled             { opacity: 0.35; cursor: default; }
+.lb-tool-reset {
+  min-width: 62px;
+  font-family: var(--font-heading);
+  font-size: 0.75rem; letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .lightbox-img-wrap { max-height: calc(100vh - 140px); }
+  .lightbox-img      { max-height: calc(100vh - 140px); }
+  .lightbox-footer   { bottom: 0.875rem; }
+  .lb-tool           { min-width: 42px; height: 42px; }   /* target sentuh lebih besar */
+}

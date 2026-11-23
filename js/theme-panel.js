@@ -51,9 +51,6 @@
 
     document.querySelectorAll('.tp-preview-dot').forEach(function(d) { d.style.background = hex; });
 
-    var applyBtn = document.getElementById('tp-apply-btn');
-    if (applyBtn) applyBtn.style.background = hex;
-
     var tab = document.getElementById('theme-toggle-btn');
     if (tab) tab.style.setProperty('--tab-accent', hex);
 
@@ -154,11 +151,11 @@
       '}',
       '.tp-close{',
         'width:26px;height:26px;border-radius:6px;',
-        'border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);',
+        'border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);',
         'color:var(--text-muted);display:flex;align-items:center;justify-content:center;',
         'cursor:pointer;font-size:.72rem;transition:all .18s;outline:none;',
       '}',
-      '.tp-close:hover{color:var(--text);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);}',
+      '.tp-close:hover{color:var(--accent);border-color:var(--accent);background:rgba(var(--accent-rgb),.08);}',
 
       /* Body */
       '.tp-body{',
@@ -219,16 +216,8 @@
       '}',
       '.tp-hex-input:focus{border-color:rgba(var(--accent-rgb),.4);background:rgba(var(--accent-rgb),.04);}',
 
-      /* Apply btn */
-      '.tp-apply{',
-        'width:100%;padding:.52rem;border-radius:8px;border:none;',
-        'background:var(--accent);color:#0a0e14;',
-        'font-family:"DM Sans",sans-serif;font-size:.75rem;font-weight:700;',
-        'cursor:pointer;transition:filter .18s,transform .18s,box-shadow .18s;',
-        'letter-spacing:.02em;outline:none;',
-      '}',
-      '.tp-apply:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 6px 20px rgba(var(--accent-rgb),.28);}',
-      '.tp-apply:active{transform:translateY(0);}',
+      /* Apply btn — memakai .btn .btn-primary, hanya atur lebar */
+      '.tp-apply{width:100%;justify-content:center;padding:.65rem 1rem;font-size:.85rem;}',
 
       /* Preview */
       '.tp-preview{margin-top:1.25rem;}',
@@ -240,12 +229,12 @@
       '.tp-footer{padding:.875rem 1.25rem 1.125rem;border-top:1px solid rgba(255,255,255,.05);flex-shrink:0;}',
       '.tp-reset{',
         'width:100%;padding:.45rem;border-radius:7px;',
-        'border:1px solid rgba(255,255,255,.08);background:transparent;',
+        'border:1px solid rgba(255,255,255,.14);background:transparent;',
         'color:var(--text-muted);font-family:"DM Sans",sans-serif;font-size:.78rem;',
         'cursor:pointer;transition:all .18s;outline:none;',
         'display:flex;align-items:center;justify-content:center;gap:.375rem;',
       '}',
-      '.tp-reset:hover{color:var(--text);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.04);}',
+      '.tp-reset:hover{color:var(--accent);border-color:var(--accent);background:rgba(var(--accent-rgb),.08);}',
 
       /* Mobile */
       '@media(max-width:480px){#theme-panel{width:100%;max-width:280px;}}',
@@ -282,7 +271,7 @@
           '<input type="color" class="tp-color-input" id="tp-color-picker" value="' + activeHex + '" aria-label="Pick custom color">' +
           '<input type="text" class="tp-hex-input" id="tp-hex-input" value="' + activeHex + '" maxlength="7" placeholder="#000000" aria-label="Hex value">' +
         '</div>' +
-        '<button class="tp-apply" id="tp-apply-btn">Apply Color</button>' +
+        '<button class="btn btn-primary tp-apply" id="tp-apply-btn"><i class="fas fa-check"></i> Apply Color</button>' +
         '<div class="tp-preview">' +
           '<div class="tp-section-label">Preview</div>' +
           '<div class="tp-preview-bar" id="tp-preview-bar"></div>' +

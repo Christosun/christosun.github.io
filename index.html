@@ -69,6 +69,7 @@
   <a href="#resume">Resume</a>
   <a href="#contact">Contact</a>
 </div>
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
 
 <!-- ─── HERO ─── -->
 <section id="hero">
@@ -984,17 +985,22 @@ window.addEventListener('scroll', () => {
 /* ─── HAMBURGER MENU ─── */
 const hamburger = document.getElementById('navHamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-  hamburger.innerHTML = mobileMenu.classList.contains('open')
-    ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+const mobileBackdrop = document.getElementById('mobileBackdrop');
+
+function setMobileMenu(open) {
+  mobileMenu.classList.toggle('open', open);
+  mobileBackdrop.classList.toggle('open', open);
+  hamburger.innerHTML = open ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+  hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+hamburger.addEventListener('click', () => setMobileMenu(!mobileMenu.classList.contains('open')));
+mobileBackdrop.addEventListener('click', () => setMobileMenu(false));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMobileMenu(false)));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMobileMenu(false);
 });
-mobileMenu.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-  });
-});
+window.addEventListener('resize', () => { if (window.innerWidth > 768) setMobileMenu(false); });
 
 /* ─── SCROLL REVEAL ─── */
 function applyReveal(el, delay) {

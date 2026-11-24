@@ -73,13 +73,13 @@
       /* Toggle tab */
       '#theme-toggle-btn{',
         'position:fixed;right:0;top:50%;transform:translateY(-50%);',
-        'z-index:1100;width:28px;height:58px;',
+        'z-index:1100;width:30px;padding:12px 0 12px 3px;',
         'border:none;border-radius:8px 0 0 8px;',
         'background:rgba(11,15,23,0.95);',
-        'cursor:grab;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;',
-        'padding:0 0 0 3px;outline:none;overflow:visible;',
+        'cursor:grab;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;',
+        'outline:none;overflow:visible;',
         'box-shadow:-4px 0 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.05);',
-        'transition:width .22s ease,background .2s ease;',
+        'transition:width .22s ease,background .2s ease,right .35s cubic-bezier(.4,0,.2,1);',
         'user-select:none;-webkit-user-select:none;touch-action:none;',
         '-webkit-tap-highlight-color:transparent;',
         '--tab-accent:#00d4aa;',
@@ -89,34 +89,34 @@
         'width:2px;border-radius:2px;',
         'background:var(--tab-accent);transition:background .3s;',
       '}',
-      '#theme-toggle-btn:hover,#theme-toggle-btn.panel-active{',
-        'width:32px;background:rgba(15,20,32,0.98);',
-      '}',
+      '#theme-toggle-btn:hover,#theme-toggle-btn.panel-active{width:34px;background:rgba(15,20,32,0.98);}',
+      '#theme-toggle-btn.panel-active{right:262px;}',
       '#theme-toggle-btn:focus-visible{outline:2px solid var(--tab-accent);outline-offset:-2px;}',
       '#theme-toggle-btn:active{cursor:grabbing;}',
       '#theme-toggle-btn.dragging{cursor:grabbing;transition:none;}',
 
-      /* Icon: palette <-> close */
-      '.tt-ico{position:relative;width:14px;height:14px;flex-shrink:0;pointer-events:none;}',
-      '.tt-icon,.tt-close-ic{',
-        'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;',
-        'font-size:.8rem;line-height:1;color:var(--tab-accent);',
-        'transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s;',
-      '}',
-      '.tt-close-ic{opacity:0;transform:rotate(-90deg) scale(.6);}',
-      '#theme-toggle-btn.panel-active .tt-icon{opacity:0;transform:rotate(90deg) scale(.6);}',
-      '#theme-toggle-btn.panel-active .tt-close-ic{opacity:1;transform:none;}',
-      '#theme-toggle-btn:hover .tt-icon{transform:scale(1.12);}',
-      '#theme-toggle-btn.panel-active:hover .tt-icon{transform:rotate(90deg) scale(.6);}',
-
-      /* Grip dots: selalu terlihat */
+      /* Grip: 2 kolom x 3 baris */
       '.tt-grip{',
-        'display:grid;grid-template-columns:repeat(2,2px);gap:2px;',
-        'pointer-events:none;opacity:.6;transition:opacity .2s;',
+        'display:grid;grid-template-columns:repeat(2,3px);gap:3px;',
+        'pointer-events:none;opacity:.55;transition:opacity .2s;',
       '}',
+      '.tt-grip span{display:block;width:3px;height:3px;border-radius:50%;background:rgba(232,237,245,.8);}',
       '#theme-toggle-btn:hover .tt-grip,#theme-toggle-btn.dragging .tt-grip{opacity:1;}',
-      '.tt-grip span{display:block;width:3px;height:3px;border-radius:50%;background:rgba(232,237,245,.6);}',
 
+      /* Label vertikal: THEME <-> CLOSE */
+      '.tt-label{display:grid;pointer-events:none;}',
+      '.tt-label span{',
+        'grid-area:1/1;',
+        'writing-mode:vertical-rl;',
+        'font-family:"Space Mono",monospace;font-size:.62rem;font-weight:700;',
+        'letter-spacing:.24em;text-transform:uppercase;line-height:1;',
+        'color:rgba(232,237,245,.75);',
+        'transition:opacity .2s,color .2s;',
+      '}',
+      '.tt-l-close{opacity:0;}',
+      '#theme-toggle-btn.panel-active .tt-l-open{opacity:0;}',
+      '#theme-toggle-btn.panel-active .tt-l-close{opacity:1;}',
+      '#theme-toggle-btn:hover .tt-label span{color:var(--tab-accent);}',
       /* Backdrop */
       '#theme-panel-backdrop{',
         'position:fixed;inset:0;z-index:1098;',
@@ -237,8 +237,13 @@
       '.tp-reset:hover{color:var(--accent);border-color:var(--accent);background:rgba(var(--accent-rgb),.08);}',
 
       /* Mobile */
-      '@media(max-width:480px){#theme-panel{width:100%;max-width:280px;}}',
-      '@media(max-width:480px){#theme-toggle-btn{width:24px;height:52px;gap:5px;}#theme-toggle-btn:hover,#theme-toggle-btn.panel-active{width:28px;}}',
+      '@media(max-width:480px){',
+        '#theme-panel{width:100%;max-width:280px;}',
+        '#theme-toggle-btn{width:28px;padding:10px 0 10px 3px;gap:8px;}',
+        '#theme-toggle-btn:hover,#theme-toggle-btn.panel-active{width:30px;}',
+        '#theme-toggle-btn.panel-active{right:min(100%,280px);}',
+        '.tt-label span{font-size:.58rem;letter-spacing:.2em;}',
+      '}',
     ].join('');
     document.head.appendChild(style);
   }
@@ -294,11 +299,8 @@
     toggleBtn.setAttribute('aria-label', 'Open theme settings');
     toggleBtn.setAttribute('title', 'Theme Color · drag to move');
     toggleBtn.innerHTML =
-      '<span class="tt-ico">' +
-        '<i class="fas fa-palette tt-icon"></i>' +
-        '<i class="fas fa-xmark tt-close-ic"></i>' +
-      '</span>' +
-      '<span class="tt-grip"><span></span><span></span><span></span><span></span><span></span><span></span></span>'
+      '<span class="tt-grip" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span>' +
+      '<span class="tt-label"><span class="tt-l-open">Color</span><span class="tt-l-close">Close</span></span>';
 
     document.body.appendChild(backdrop);
     document.body.appendChild(panel);
